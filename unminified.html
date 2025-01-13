@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<head>
+    <title>Tic Tac Toe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        body {
+            font-family: monospace;
+            background-color: black
+        }
+
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%)
+        }
+
+        button {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            width: 60px;
+            height: 60px;
+            background-color: black;
+            border: none;
+            color: white;
+            font-size: 40px;
+            border: solid 1px transparent
+        }
+
+        .top {
+            border-top-color: white
+        }
+
+        .left {
+            border-left-color: white
+        }
+
+        .right {
+            border-right-color: white
+        }
+
+        .bottom {
+            border-bottom-color: white
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <button class="right bottom" id="a1" onclick="play(this.id)">&#8203</button>
+            <button class="left right bottom" id="a2" onclick="play(this.id)">&#8203</button>
+            <button class="left bottom" id="a3" onclick="play(this.id)">&#8203</button>
+        </div>
+        <div>
+            <button class="top right bottom" id="b1" onclick="play(this.id)">&#8203</button>
+            <button class="top bottom right left" id="b2" onclick="play(this.id)">&#8203</button>
+            <button class="top left bottom" id="b3" onclick="play(this.id)">&#8203</button>
+        </div>
+        <div>
+            <button class="top right" id="c1" onclick="play(this.id)">&#8203</button>
+            <button class="left top right" id="c2" onclick="play(this.id)">&#8203</button>
+            <button class="top left" id="c3" onclick="play(this.id)">&#8203</button>
+        </div>
+    </div>
+</body>
+<script>
+    let turn = "X"
+
+    const combinations = [
+        ["a1", "a2", "a3"],
+        ["b1", "b2", "b3"],
+        ["c1", "c2", "c3"],
+        ["a1", "b1", "c1"],
+        ["a2", "b2", "c2"],
+        ["a3", "b3", "c3"],
+        ["a1", "b2", "c3"],
+        ["a3", "b2", "c1"]
+    ]
+
+    const allButtons = document.querySelectorAll("button")
+
+    function play(id) {
+        const btn = document.getElementById(id)
+
+        btn.innerText = turn
+        btn.disabled = true
+
+        checkWinner()
+
+        turn = turn == "X" ? "O" : "X"
+    }
+
+    function checkWinner() {
+        for (const combination of combinations) {
+            const [a, b, c] = combination
+
+            const btnA = document.getElementById(a).innerText
+            const btnB = document.getElementById(b).innerText
+            const btnC = document.getElementById(c).innerText
+
+            if (["X", "O"].includes(btnA) && btnA === btnB && btnB === btnC) {
+                alert(`${btnA} wins!`)
+
+                return reset()
+            }
+        }
+
+        const avaibleButtons = []
+
+        for (const button of allButtons) {
+            if (button.disabled) continue
+            avaibleButtons.push(button)
+        }
+
+        if (avaibleButtons.length == 0) {
+            alert("It's a tie")
+            reset()
+        }
+    }
+
+    function reset() {
+        for (const button of allButtons) {
+            button.disabled = false
+            button.innerHTML = "&#8203"
+        }
+
+        turn = "X"
+    }
+</script>
