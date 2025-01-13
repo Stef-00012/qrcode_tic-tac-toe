@@ -7,6 +7,6 @@ data:text/html;charset=utf-8;base64,PCFET0NUWVBFIGh0bWw+PGhlYWQ+PHRpdGxlPlRpYyBU
 
 # Tools Used
 
-Minified the JS code with `google-closure-compiler` NPM library.
-Minified the HTML code with https://codebeautify.org/minify-html.
+Minified the JS code with `google-closure-compiler` NPM library.<br />
+Minified the HTML code with https://codebeautify.org/minify-html.<br />
 converted to data URI with https://dopiaza.org/tools/datauri/index.php.
